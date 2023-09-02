@@ -7,9 +7,10 @@ namespace TracksineWebScrapper.DataAccess
     public class TracksineContext : DbContext
     {
         public DbSet<SpinHistory> SpinHistory { get; set; }
+        public DbSet<SpinHistoryModel> SpinHistoryModel { get; set; }       
 
         public TracksineContext()
-        {
+        {       
 
         }
 
