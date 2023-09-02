@@ -30,6 +30,8 @@
         {
             button1 = new Button();
             tboxMain = new RichTextBox();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -44,27 +46,39 @@
             // 
             // tboxMain
             // 
-            tboxMain.Location = new Point(46, 12);
+            tboxMain.Location = new Point(565, 306);
             tboxMain.Name = "tboxMain";
-            tboxMain.Size = new Size(241, 225);
+            tboxMain.Size = new Size(38, 94);
             tboxMain.TabIndex = 5;
             tboxMain.Text = "";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(513, 399);
+            dataGridView1.TabIndex = 6;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView1);
             Controls.Add(tboxMain);
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private Button button1;
         private RichTextBox tboxMain;
+        private DataGridView dataGridView1;
     }
 }
