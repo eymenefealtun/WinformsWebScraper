@@ -8,6 +8,8 @@ namespace TracksineWebScrapper.DataAccess
     {
         public DbSet<SpinHistory> SpinHistory { get; set; }
         public DbSet<SpinHistoryModel> SpinHistoryModel { get; set; }       
+        public DbSet<Entities.Image> Images { get; set; }       
+        public DbSet<MainModel> MainModel { get; set; }       
 
         public TracksineContext()
         {       

@@ -1,9 +1,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Data.Common;
+using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using TracksineWebScrapper.Business;
 using TracksineWebScrapper.Entities;
 using TracksineWebScrapper.Utility;
+using Microsoft.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace TracksineWebScrapper
 {
@@ -11,13 +16,16 @@ namespace TracksineWebScrapper
     {
 
         string _url = "https://tracksino.com/crazytime";
-        EfSpinHistory _efSpinHistory;
+        public EfSpinHistory _efSpinHistory;
         EfSpinHistoryModel _efSpinHistoryModel;
+        EfMainModel _efMainModel;
+        EfImage _efImage;
         ChromeDriver _chromeDriver;
         ChromeOptions _chromeOptions;
         ChromeDriverService _chromeDriverService;
         public SpinHistoryModel[] _last10Spin = new SpinHistoryModel[10];
         int _numberOfPull = 0;
+        int _numberOfErrors = 0;
 
         public Form1()
         {
@@ -26,48 +34,38 @@ namespace TracksineWebScrapper
 
             EfSpinHistory efTracksine = new EfSpinHistory();
             EfSpinHistoryModel efSpinHistoryModel = new EfSpinHistoryModel();
+            EfImage efImage = new EfImage();
+            EfMainModel efMainModel = new EfMainModel();
             _efSpinHistory = efTracksine;
             _efSpinHistoryModel = efSpinHistoryModel;
+            _efImage = efImage;
+            _efMainModel = efMainModel;
 
+
+            lblNumberOfErrors.Text = _numberOfErrors.ToString();
 
             HandleDatagrid();
             HandleSelenium();
 
         }
-        private void SetLastTenValue()
-        {
-            _last10Spin = null;
-            _last10Spin = _efSpinHistory.GetAll().OrderByDescending(x => x.Id).Take(10).Select(x => new SpinHistoryModel
-            {
-                OccuredAt = x.OccuredAt,
-                SlotResult = x.SlotResult,
-                SpinResult = x.SpinResult,
-                Multiplier = x.Multiplier,
-                TotalWinners = x.TotalWinners,
-                TotalPayout = x.TotalPayout
-            }).ToArray();
-        }
+
         private void HandleDatagrid()
         {
 
-            #region design
-            dgwMain.AutoGenerateColumns = false;
-            dgwMain.Columns["OccuredAt"].DataPropertyName = "OccuredAt";
-            dgwMain.Columns["SlotResult"].DataPropertyName = "SlotResult";
-            dgwMain.Columns["SpinResult"].DataPropertyName = "SpinResult";
-            dgwMain.Columns["Multiplier"].DataPropertyName = "Multiplier";
-            dgwMain.Columns["TotalWinners"].DataPropertyName = "TotalWinners";
-            dgwMain.Columns["TotalPayout"].DataPropertyName = "TotalPayout";
+            dgwTrial.AutoGenerateColumns = false;
+            dgwTrial.Columns["OccuredAt"].DataPropertyName = "OccuredAt";
+            dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResult";
+            dgwTrial.Columns["SpinResult"].DataPropertyName = "SpinResult";
+            dgwTrial.Columns["Multiplier"].DataPropertyName = "Multiplier";
+            dgwTrial.Columns["TotalWinners"].DataPropertyName = "TotalWinners";
+            dgwTrial.Columns["TotalPayout"].DataPropertyName = "TotalPayout";
+            dgwTrial.RowTemplate.Height = 55;
+            dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgwTrial.ColumnHeadersHeight = 40;
+            dgwTrial.GridColor = Color.LightGray;
+            dgwTrial.DataSource = _efMainModel.GetDataGridData();
 
-            dgwMain.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgwMain.ColumnHeadersHeight = 30;
-            //this.dgwMain.RowHeadersWidth = 120;
-
-            #endregion
-
-            dgwMain.DataSource = _efSpinHistoryModel.GetAllRaw();
-
-            SetLastTenValue();
+            Utilities.SetLastTenValue();
 
         }
         private void HandleSelenium()
@@ -113,9 +111,16 @@ namespace TracksineWebScrapper
                     {
                         OccuredAt = currentRow.FindElement(By.XPath("td[1]")).Text,
                         SlotResult = currentRow.FindElement(By.XPath("td[2]")).Text,
-                        SpinResult = currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2],
+
+                        //SpinResult = Utilities.GetSpinResultFromAbbreviation(currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2]),
+                        SpinResult = Utilities.GetSpinIconId(currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2]),
+
+
+
                         Multiplier = currentRow.FindElement(By.XPath("td[4]")).Text,
-                        TotalWinners = Convert.ToDecimal(currentRow.FindElement(By.XPath("td[5]")).Text),
+                        //TotalWinners = Convert.ToDecimal(currentRow.FindElement(By.XPath("td[5]")).Text),
+                        //TotalWinners = Convert.ToInt32(currentRow.FindElement(By.XPath("td[5]")).Text),
+                        TotalWinners = int.Parse(currentRow.FindElement(By.XPath("td[5]")).FindElement(By.XPath("span")).Text, NumberStyles.AllowThousands),
                         TotalPayout = currentRow.FindElement(By.XPath("td[6]")).Text,
                     };
 
@@ -130,29 +135,32 @@ namespace TracksineWebScrapper
 
 
                 _efSpinHistory.AddRange(spinHistories);
-                dgwMain.DataSource = _efSpinHistoryModel.GetAllRaw();
+                dgwTrial.DataSource = _efMainModel.GetDataGridData(); //////////////
 
                 //////MessageBox.Show("Data cekildi");
 
 
-                SetLastTenValue();
+                Utilities.SetLastTenValue();
 
 
             }
             catch (Exception exception)
             {
                 _chromeDriver.Quit();
-                MessageBox.Show(exception.Message);
+                _numberOfErrors++;
+                lblNumberOfErrors.Text = _numberOfErrors.ToString();
+                //MessageBox.Show(exception.Message);
             }
 
         }
+
 
         private void TimerTick()
         {
             Cursor.Current = Cursors.WaitCursor;
             RunScrapping();
             _numberOfPull++;
-            timerMain.Interval = 120000 + Utilities.GetRandomValue();
+            timerMain.Interval = 120000 + Utilities.GetRandomValue(20000, -10000);
             lblNumberOfPull.Text = _numberOfPull.ToString();
             lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
             Cursor.Current = null;
@@ -173,6 +181,13 @@ namespace TracksineWebScrapper
         {
             TimerTick();
             timerMain.Start();
+            dgwTrial.DataSource = _efMainModel.GetDataGridData();
+
+
+
+
+
+
         }
 
     }

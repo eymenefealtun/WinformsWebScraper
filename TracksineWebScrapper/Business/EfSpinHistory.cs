@@ -60,6 +60,13 @@ namespace TracksineWebScrapper.Business
                 return await context.Set<SpinHistory>().SingleOrDefaultAsync(filter);
             }
         }
+        public List<SpinHistory> GetLastTen()       
+        {
+            using (TracksineContext context = new TracksineContext())
+            {
+                return context.Set<SpinHistory>().FromSqlRaw(@"SELECT TOP 10 * From SpinHistory ORDER BY ID DESC").ToList();
+            }
+        }
 
     }
 }

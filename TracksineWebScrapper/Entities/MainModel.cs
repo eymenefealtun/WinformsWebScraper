@@ -2,18 +2,17 @@
 
 namespace TracksineWebScrapper.Entities
 {
-    public class SpinHistory
+    [Keyless]
+    public class MainModel
     {
-        //[Browsable(false)]        
-        public int Id { get; set; }
+        public int Id { get; set; }     
         public string OccuredAt { get; set; }
         public string SlotResult { get; set; }
-        //public string SpinResult { get; set; }
-        public int SpinResult { get; set; }
+        public byte[] SpinResult { get; set; }
         public string Multiplier { get; set; }
-        //[Precision(18, 0)]
         public int TotalWinners { get; set; }
         public string TotalPayout { get; set; }
-
+        public int ImageId { get; set; }        
+        public string ImageText { get; set; }
     }
 }

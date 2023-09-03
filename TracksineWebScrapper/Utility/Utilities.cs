@@ -1,5 +1,4 @@
-﻿using System;
-using TracksineWebScrapper.Entities;
+﻿using TracksineWebScrapper.Entities;
 
 namespace TracksineWebScrapper.Utility
 {
@@ -7,11 +6,25 @@ namespace TracksineWebScrapper.Utility
     {
         static Form1 _mainForm { get; set; }
         static Random _random { get; set; }
-
+        static Dictionary<string, int> _spinResultIcons;
         public Utilities(Form1 form)
         {
             _mainForm = form;
             _random = new Random();
+
+            var spinResultIcons = new Dictionary<string, int>
+            {
+                { "1",9},
+                { "2",10},
+                { "5",11},
+                { "10", 12},
+                { "ct", 13},
+                { "ch", 14},
+                { "cf", 15},
+                { "pa", 16}
+            };
+
+            _spinResultIcons = spinResultIcons;
         }
 
         internal static bool IsAddedBefore(SpinHistory spinHistory)
@@ -36,20 +49,37 @@ namespace TracksineWebScrapper.Utility
             return isAdded;
         }
 
-
-        internal static int GetRandomValue()
+        internal static void SetLastTenValue()
         {
-            int positive = _random.Next(0, 20000); //20 second +
-            int negative = _random.Next(-10000, 0); //10 second -
-
-            return Random1Over2() ? positive : negative;
+            _mainForm._last10Spin = null;
+            _mainForm._last10Spin = _mainForm._efSpinHistory.GetLastTen().Select(x => new SpinHistoryModel
+            {
+                OccuredAt = x.OccuredAt,
+                SlotResult = x.SlotResult,
+                SpinResult = x.SpinResult,
+                Multiplier = x.Multiplier,
+                TotalWinners = x.TotalWinners,
+                TotalPayout = x.TotalPayout
+            }).ToArray();
+        }
+        internal static int GetRandomValue(int positive, int negative)
+        {
+            return Random1Over2() ? _random.Next(0, positive) : _random.Next(negative, 0);
         }
 
         private static bool Random1Over2()
         {
-            int value = _random.Next(0, 10);
-            return value < 4 ? false : true;
+            return _random.Next(0, 10) < 4 ? false : true;
         }
+
+        internal static int GetSpinIconId(string input)
+        {
+            return _spinResultIcons.Where(x => x.Key == input).FirstOrDefault().Value;
+        }
+
+
+
+
 
 
     }
