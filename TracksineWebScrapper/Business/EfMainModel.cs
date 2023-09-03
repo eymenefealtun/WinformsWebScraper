@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TracksineWebScrapper.DataAccess;
-using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Entities.Models;
 
 namespace TracksineWebScrapper.Business
 {
@@ -12,8 +12,10 @@ namespace TracksineWebScrapper.Business
             using (TracksineContext context = new TracksineContext())       
             {
                 return context.Set<MainModel>().FromSqlRaw(@"
-SELECT S.Id,S.OccuredAt, S.SlotResult,I.ImageCode 'SpinResult', S.Multiplier,S.TotalWinners, S.TotalPayout,  I.Id 'ImageId', I.ImageText FROM SpinHistory S
-JOIN Images I ON I. Id = S.SpinResult ORDER BY s.Id DESC").ToList();
+SELECT S.Id , S.OccuredAt, ISlot.ImageCode 'SlotResultImage', S.SlotResultText , ISpin.ImageCode 'SpinResult' , S.Multiplier, S.TotalWinners, S.TotalPayout   FROM SpinHistory S 
+JOIN SpinResultImage ISpin ON Ispin.Id = S.SpinResultId
+JOIN SlotResultImage ISlot ON ISlot.Id = S.SlotResultImageId
+ ORDER BY s.Id DESC").ToList();
             }
         }
 

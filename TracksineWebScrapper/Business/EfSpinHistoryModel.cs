@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TracksineWebScrapper.DataAccess;
-using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Entities.Models;
 
 namespace TracksineWebScrapper.Business
 {

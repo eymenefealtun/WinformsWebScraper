@@ -29,19 +29,15 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panelMain = new Panel();
+            lblNoSuchElementOccured = new Label();
+            label4 = new Label();
             rBoxError = new RichTextBox();
             dgwTrial = new DataGridView();
-            OccuredAt = new DataGridViewTextBoxColumn();
-            SlotResult = new DataGridViewTextBoxColumn();
-            SpinResult = new DataGridViewImageColumn();
-            Multiplier = new DataGridViewTextBoxColumn();
-            TotalWinners = new DataGridViewTextBoxColumn();
-            TotalPayout = new DataGridViewTextBoxColumn();
             lblNumberOfErrors = new Label();
             label3 = new Label();
             lblTotalData = new Label();
@@ -50,8 +46,12 @@
             lblNamePull = new Label();
             btnGetData = new Button();
             timerMain = new System.Windows.Forms.Timer(components);
-            lblNoSuchElementOccured = new Label();
-            label4 = new Label();
+            OccuredAt = new DataGridViewTextBoxColumn();
+            SlotResult = new DataGridViewImageColumn();
+            SpinResult = new DataGridViewImageColumn();
+            Multiplier = new DataGridViewTextBoxColumn();
+            TotalWinners = new DataGridViewTextBoxColumn();
+            TotalPayout = new DataGridViewTextBoxColumn();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).BeginInit();
             SuspendLayout();
@@ -75,6 +75,24 @@
             panelMain.Size = new Size(1051, 494);
             panelMain.TabIndex = 0;
             // 
+            // lblNoSuchElementOccured
+            // 
+            lblNoSuchElementOccured.AutoSize = true;
+            lblNoSuchElementOccured.Location = new Point(999, 92);
+            lblNoSuchElementOccured.Name = "lblNoSuchElementOccured";
+            lblNoSuchElementOccured.Size = new Size(19, 15);
+            lblNoSuchElementOccured.TabIndex = 10;
+            lblNoSuchElementOccured.Text = "19";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(855, 92);
+            label4.Name = "label4";
+            label4.Size = new Size(140, 15);
+            label4.TabIndex = 9;
+            label4.Text = "NoSuchElement Occured";
+            // 
             // rBoxError
             // 
             rBoxError.Location = new Point(846, 129);
@@ -85,75 +103,43 @@
             // 
             // dgwTrial
             // 
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(239, 243, 246);
-            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(239, 243, 246);
+            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgwTrial.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgwTrial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgwTrial.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwTrial.Columns.AddRange(new DataGridViewColumn[] { OccuredAt, SlotResult, SpinResult, Multiplier, TotalWinners, TotalPayout });
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Window;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dgwTrial.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgwTrial.DefaultCellStyle = dataGridViewCellStyle3;
             dgwTrial.Location = new Point(3, 0);
             dgwTrial.Name = "dgwTrial";
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Control;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgwTrial.RowHeadersVisible = false;
             dgwTrial.RowTemplate.Height = 25;
             dgwTrial.Size = new Size(823, 491);
             dgwTrial.TabIndex = 1;
-            // 
-            // OccuredAt
-            // 
-            OccuredAt.HeaderText = "Occured At";
-            OccuredAt.Name = "OccuredAt";
-            // 
-            // SlotResult
-            // 
-            SlotResult.HeaderText = "Slot Result";
-            SlotResult.Name = "SlotResult";
-            // 
-            // SpinResult
-            // 
-            SpinResult.HeaderText = "SpinResult";
-            SpinResult.Name = "SpinResult";
-            SpinResult.Resizable = DataGridViewTriState.True;
-            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Multiplier
-            // 
-            Multiplier.HeaderText = "Multiplier";
-            Multiplier.Name = "Multiplier";
-            // 
-            // TotalWinners
-            // 
-            TotalWinners.HeaderText = "Total Winners";
-            TotalWinners.Name = "TotalWinners";
-            // 
-            // TotalPayout
-            // 
-            TotalPayout.HeaderText = "Total Payout";
-            TotalPayout.Name = "TotalPayout";
             // 
             // lblNumberOfErrors
             // 
@@ -225,23 +211,39 @@
             timerMain.Interval = 120000;
             timerMain.Tick += timerMain_Tick;
             // 
-            // lblNoSuchElementOccured
+            // OccuredAt
             // 
-            lblNoSuchElementOccured.AutoSize = true;
-            lblNoSuchElementOccured.Location = new Point(999, 92);
-            lblNoSuchElementOccured.Name = "lblNoSuchElementOccured";
-            lblNoSuchElementOccured.Size = new Size(19, 15);
-            lblNoSuchElementOccured.TabIndex = 10;
-            lblNoSuchElementOccured.Text = "19";
+            OccuredAt.HeaderText = "Occured At";
+            OccuredAt.Name = "OccuredAt";
             // 
-            // label4
+            // SlotResult
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(855, 92);
-            label4.Name = "label4";
-            label4.Size = new Size(140, 15);
-            label4.TabIndex = 9;
-            label4.Text = "NoSuchElement Occured";
+            SlotResult.HeaderText = "Slot Result";
+            SlotResult.Name = "SlotResult";
+            SlotResult.Resizable = DataGridViewTriState.True;
+            SlotResult.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // SpinResult
+            // 
+            SpinResult.HeaderText = "SpinResult";
+            SpinResult.Name = "SpinResult";
+            SpinResult.Resizable = DataGridViewTriState.True;
+            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Multiplier
+            // 
+            Multiplier.HeaderText = "Multiplier";
+            Multiplier.Name = "Multiplier";
+            // 
+            // TotalWinners
+            // 
+            TotalWinners.HeaderText = "Total Winners";
+            TotalWinners.Name = "TotalWinners";
+            // 
+            // TotalPayout
+            // 
+            TotalPayout.HeaderText = "Total Payout";
+            TotalPayout.Name = "TotalPayout";
             // 
             // Form1
             // 
@@ -271,14 +273,14 @@
         private Label lblNumberOfErrors;
         private Label label3;
         private DataGridView dgwTrial;
+        private RichTextBox rBoxError;
+        private Label lblNoSuchElementOccured;
+        private Label label4;
         private DataGridViewTextBoxColumn OccuredAt;
-        private DataGridViewTextBoxColumn SlotResult;
+        private DataGridViewImageColumn SlotResult;
         private DataGridViewImageColumn SpinResult;
         private DataGridViewTextBoxColumn Multiplier;
         private DataGridViewTextBoxColumn TotalWinners;
         private DataGridViewTextBoxColumn TotalPayout;
-        private RichTextBox rBoxError;
-        private Label lblNoSuchElementOccured;
-        private Label label4;
     }
 }

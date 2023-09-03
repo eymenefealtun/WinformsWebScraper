@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Entities.Models;
 
 namespace TracksineWebScrapper.DataAccess
 {
@@ -8,8 +9,9 @@ namespace TracksineWebScrapper.DataAccess
     {
         public DbSet<SpinHistory> SpinHistory { get; set; }
         public DbSet<SpinHistoryModel> SpinHistoryModel { get; set; }       
-        public DbSet<Entities.Image> Images { get; set; }       
         public DbSet<MainModel> MainModel { get; set; }       
+        public DbSet<SpinResultImage> SpinResultImages { get; set; }       
+        public DbSet<SlotResultImage> SlotResultImages { get; set; }               
 
         public TracksineContext()
         {       

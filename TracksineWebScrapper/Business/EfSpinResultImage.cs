@@ -1,15 +1,16 @@
 ﻿using System.Linq.Expressions;
 using TracksineWebScrapper.DataAccess;
+using TracksineWebScrapper.Entities;
 
 namespace TracksineWebScrapper.Business
 {
-    internal class EfImage
+    internal class EfSpinResultImage
     {
-        public Entities.Image GetById(Expression<Func<Entities.Image, bool>> filter)
+        public SpinResultImage GetById(Expression<Func<SpinResultImage, bool>> filter)
         {
             using (TracksineContext context = new TracksineContext())
             {       
-                return context.Set<Entities.Image>().SingleOrDefault(filter);
+                return context.Set<SpinResultImage>().SingleOrDefault(filter);
             }
         }
     }

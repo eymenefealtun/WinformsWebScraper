@@ -1,4 +1,5 @@
 ﻿using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Entities.Models;
 
 namespace TracksineWebScrapper.Utility
 {
@@ -6,25 +7,38 @@ namespace TracksineWebScrapper.Utility
     {
         static Form1 _mainForm { get; set; }
         static Random _random { get; set; }
-        static Dictionary<string, int> _spinResultIcons;
+        static Dictionary<string, Int16> _spinResultIcons;
+        static Dictionary<string, Int16> _slotResultIcon;
         public Utilities(Form1 form)
         {
             _mainForm = form;
             _random = new Random();
 
-            var spinResultIcons = new Dictionary<string, int>
+            var spinResultIcons = new Dictionary<string, Int16>
             {
-                { "1",9},
-                { "2",10},
-                { "5",11},
-                { "10", 12},
-                { "ct", 13},
-                { "ch", 14},
-                { "cf", 15},
-                { "pa", 16}
+                { "1",8},
+                { "2",7},
+                { "5",6},
+                { "10", 5},
+                { "ct", 2},
+                { "ch", 4},
+                { "cf", 3},
+                { "pa", 1}
+            };
+            var slotResultIcon = new Dictionary<string, Int16>
+            {
+                { "1",1},
+                { "2",2},
+                { "5",3},
+                { "10", 4},
+                { "ct", 7},
+                { "ch", 5},
+                { "cf", 6},
+                { "pa", 8}
             };
 
             _spinResultIcons = spinResultIcons;
+            _slotResultIcon = slotResultIcon;
         }
 
         internal static bool IsAddedBefore(SpinHistory spinHistory)
@@ -34,8 +48,9 @@ namespace TracksineWebScrapper.Utility
             for (int i = 0; i < _mainForm._last10Spin.Count(); i++)
             {
                 if (_mainForm._last10Spin[i].OccuredAt == spinHistory.OccuredAt
-                   && _mainForm._last10Spin[i].SlotResult == spinHistory.SlotResult
-                   && _mainForm._last10Spin[i].SpinResult == spinHistory.SpinResult
+                   && _mainForm._last10Spin[i].SlotResultImageId == spinHistory.SlotResultImageId
+                   && _mainForm._last10Spin[i].SlotResultText == spinHistory.SlotResultText     
+                   && _mainForm._last10Spin[i].SpinResultId == spinHistory.SpinResultId
                    && _mainForm._last10Spin[i].Multiplier == spinHistory.Multiplier
                    && _mainForm._last10Spin[i].TotalWinners == spinHistory.TotalWinners
                    && _mainForm._last10Spin[i].TotalPayout == spinHistory.TotalPayout)
@@ -55,8 +70,9 @@ namespace TracksineWebScrapper.Utility
             _mainForm._last10Spin = _mainForm._efSpinHistory.GetLastTen().Select(x => new SpinHistoryModel
             {
                 OccuredAt = x.OccuredAt,
-                SlotResult = x.SlotResult,
-                SpinResult = x.SpinResult,
+                SlotResultImageId = x.SlotResultImageId,
+                SlotResultText = x.SlotResultText,
+                SpinResultId = x.SpinResultId,
                 Multiplier = x.Multiplier,
                 TotalWinners = x.TotalWinners,
                 TotalPayout = x.TotalPayout
@@ -72,13 +88,17 @@ namespace TracksineWebScrapper.Utility
             return _random.Next(0, 10) < 4 ? false : true;
         }
 
-        internal static int GetSpinIconId(string input)
+        internal static Int16 GetSpinIconId(string input)
         {
             return _spinResultIcons.Where(x => x.Key == input).FirstOrDefault().Value;
         }
 
 
 
+        internal static Int16 GetSlotResultImageId(string input)
+        {
+            return _slotResultIcon.Where(x => x.Key == input).FirstOrDefault().Value;
+        }
 
 
 

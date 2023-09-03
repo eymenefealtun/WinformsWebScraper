@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using TracksineWebScrapper.Business;
 using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Entities.Models;
 using TracksineWebScrapper.Utility;
 
 namespace TracksineWebScrapper
@@ -16,7 +17,7 @@ namespace TracksineWebScrapper
         public EfSpinHistory _efSpinHistory;
         EfSpinHistoryModel _efSpinHistoryModel;
         EfMainModel _efMainModel;
-        EfImage _efImage;
+        EfSpinResultImage _efImage;
         ChromeDriver _chromeDriver;
         ChromeOptions _chromeOptions;
         ChromeDriverService _chromeDriverService;
@@ -33,7 +34,7 @@ namespace TracksineWebScrapper
 
             EfSpinHistory efTracksine = new EfSpinHistory();
             EfSpinHistoryModel efSpinHistoryModel = new EfSpinHistoryModel();
-            EfImage efImage = new EfImage();
+            EfSpinResultImage efImage = new EfSpinResultImage();
             EfMainModel efMainModel = new EfMainModel();
             _efSpinHistory = efTracksine;
             _efSpinHistoryModel = efSpinHistoryModel;
@@ -55,7 +56,8 @@ namespace TracksineWebScrapper
 
             dgwTrial.AutoGenerateColumns = false;
             dgwTrial.Columns["OccuredAt"].DataPropertyName = "OccuredAt";
-            dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResult";
+            //dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResult";
+            dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResultImage";
             dgwTrial.Columns["SpinResult"].DataPropertyName = "SpinResult";
             dgwTrial.Columns["Multiplier"].DataPropertyName = "Multiplier";
             dgwTrial.Columns["TotalWinners"].DataPropertyName = "TotalWinners";
@@ -108,19 +110,19 @@ namespace TracksineWebScrapper
                 {
                     var currentRow = rowGroup.FindElement(By.XPath($"tr[{i}]"));
 
+
+                    var temp = currentRow.FindElement(By.XPath("td[2]")).FindElement(By.XPath("span")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[3];
+
                     var currentSpinHistory = new SpinHistory()
                     {
                         OccuredAt = currentRow.FindElement(By.XPath("td[1]")).Text,
-                        SlotResult = currentRow.FindElement(By.XPath("td[2]")).Text,
 
-                        //SpinResult = Utilities.GetSpinResultFromAbbreviation(currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2]),
-                        SpinResult = Utilities.GetSpinIconId(currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2]),
+                        SlotResultImageId = Utilities.GetSlotResultImageId(currentRow.FindElement(By.XPath("td[2]")).FindElement(By.XPath("span")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[3]),
+                        SlotResultText = currentRow.FindElement(By.XPath("td[2]")).Text,
 
-
+                        SpinResultId = Utilities.GetSpinIconId(currentRow.FindElement(By.XPath("td[3]")).FindElement(By.XPath("center")).FindElement(By.XPath("i")).GetAttribute("class").Split('-')[2]),
 
                         Multiplier = currentRow.FindElement(By.XPath("td[4]")).Text,
-                        //TotalWinners = Convert.ToDecimal(currentRow.FindElement(By.XPath("td[5]")).Text),
-                        //TotalWinners = Convert.ToInt32(currentRow.FindElement(By.XPath("td[5]")).Text),
                         TotalWinners = int.Parse(currentRow.FindElement(By.XPath("td[5]")).FindElement(By.XPath("span")).Text, NumberStyles.AllowThousands),
                         TotalPayout = currentRow.FindElement(By.XPath("td[6]")).Text,
                     };
@@ -149,8 +151,8 @@ namespace TracksineWebScrapper
             {
                 //This part prevents us from missing any data caused by not loading the HTML.
                 //Sometimes, we might be scraping HTML while it is still being uploaded and not entirely done.
-                //We wait using 'Thread.Sleep(2000)' in order to get the full HTML.
-                //If I don't do this here, I get an exception as follows in every 10 update:
+                //We wait using 'Thread.Sleep(2000)' in order to get the full HTML, and try to receive adata again.
+                //If I don't do this here, I sometimes get an exception as below:
                 //
                 //no such element: Unable to locate element: {"method":"xpath","selector":"span"}
                 //
