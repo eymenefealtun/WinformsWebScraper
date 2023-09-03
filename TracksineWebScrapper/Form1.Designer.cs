@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panelMain = new Panel();
+            rBoxError = new RichTextBox();
             dgwTrial = new DataGridView();
             OccuredAt = new DataGridViewTextBoxColumn();
             SlotResult = new DataGridViewTextBoxColumn();
@@ -41,7 +42,6 @@
             Multiplier = new DataGridViewTextBoxColumn();
             TotalWinners = new DataGridViewTextBoxColumn();
             TotalPayout = new DataGridViewTextBoxColumn();
-            pBoxTrial = new PictureBox();
             lblNumberOfErrors = new Label();
             label3 = new Label();
             lblTotalData = new Label();
@@ -50,16 +50,19 @@
             lblNamePull = new Label();
             btnGetData = new Button();
             timerMain = new System.Windows.Forms.Timer(components);
+            lblNoSuchElementOccured = new Label();
+            label4 = new Label();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pBoxTrial).BeginInit();
             SuspendLayout();
             // 
             // panelMain
             // 
-            panelMain.Anchor = AnchorStyles.None;
+            panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panelMain.Controls.Add(lblNoSuchElementOccured);
+            panelMain.Controls.Add(label4);
+            panelMain.Controls.Add(rBoxError);
             panelMain.Controls.Add(dgwTrial);
-            panelMain.Controls.Add(pBoxTrial);
             panelMain.Controls.Add(lblNumberOfErrors);
             panelMain.Controls.Add(label3);
             panelMain.Controls.Add(lblTotalData);
@@ -67,48 +70,57 @@
             panelMain.Controls.Add(lblNumberOfPull);
             panelMain.Controls.Add(lblNamePull);
             panelMain.Controls.Add(btnGetData);
-            panelMain.Location = new Point(1, 30);
+            panelMain.Location = new Point(1, 5);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1051, 435);
+            panelMain.Size = new Size(1051, 494);
             panelMain.TabIndex = 0;
+            // 
+            // rBoxError
+            // 
+            rBoxError.Location = new Point(846, 129);
+            rBoxError.Name = "rBoxError";
+            rBoxError.Size = new Size(173, 206);
+            rBoxError.TabIndex = 8;
+            rBoxError.Text = "";
             // 
             // dgwTrial
             // 
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(239, 243, 246);
-            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(239, 243, 246);
+            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgwTrial.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgwTrial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgwTrial.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwTrial.Columns.AddRange(new DataGridViewColumn[] { OccuredAt, SlotResult, SpinResult, Multiplier, TotalWinners, TotalPayout });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgwTrial.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgwTrial.DefaultCellStyle = dataGridViewCellStyle7;
             dgwTrial.Location = new Point(3, 0);
             dgwTrial.Name = "dgwTrial";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Control;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dgwTrial.RowHeadersVisible = false;
             dgwTrial.RowTemplate.Height = 25;
-            dgwTrial.Size = new Size(823, 432);
+            dgwTrial.Size = new Size(823, 491);
             dgwTrial.TabIndex = 1;
             // 
             // OccuredAt
@@ -143,14 +155,6 @@
             TotalPayout.HeaderText = "Total Payout";
             TotalPayout.Name = "TotalPayout";
             // 
-            // pBoxTrial
-            // 
-            pBoxTrial.Location = new Point(869, 126);
-            pBoxTrial.Name = "pBoxTrial";
-            pBoxTrial.Size = new Size(132, 101);
-            pBoxTrial.TabIndex = 7;
-            pBoxTrial.TabStop = false;
-            // 
             // lblNumberOfErrors
             // 
             lblNumberOfErrors.AutoSize = true;
@@ -165,9 +169,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(856, 64);
             label3.Name = "label3";
-            label3.Size = new Size(145, 15);
+            label3.Size = new Size(144, 15);
             label3.TabIndex = 5;
-            label3.Text = "Number of errors received";
+            label3.Text = "Number of errors occured";
             // 
             // lblTotalData
             // 
@@ -221,6 +225,24 @@
             timerMain.Interval = 120000;
             timerMain.Tick += timerMain_Tick;
             // 
+            // lblNoSuchElementOccured
+            // 
+            lblNoSuchElementOccured.AutoSize = true;
+            lblNoSuchElementOccured.Location = new Point(999, 92);
+            lblNoSuchElementOccured.Name = "lblNoSuchElementOccured";
+            lblNoSuchElementOccured.Size = new Size(19, 15);
+            lblNoSuchElementOccured.TabIndex = 10;
+            lblNoSuchElementOccured.Text = "19";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(855, 92);
+            label4.Name = "label4";
+            label4.Size = new Size(140, 15);
+            label4.TabIndex = 9;
+            label4.Text = "NoSuchElement Occured";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -234,7 +256,6 @@
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pBoxTrial).EndInit();
             ResumeLayout(false);
         }
 
@@ -249,7 +270,6 @@
         private Label label2;
         private Label lblNumberOfErrors;
         private Label label3;
-        private PictureBox pBoxTrial;
         private DataGridView dgwTrial;
         private DataGridViewTextBoxColumn OccuredAt;
         private DataGridViewTextBoxColumn SlotResult;
@@ -257,5 +277,8 @@
         private DataGridViewTextBoxColumn Multiplier;
         private DataGridViewTextBoxColumn TotalWinners;
         private DataGridViewTextBoxColumn TotalPayout;
+        private RichTextBox rBoxError;
+        private Label lblNoSuchElementOccured;
+        private Label label4;
     }
 }

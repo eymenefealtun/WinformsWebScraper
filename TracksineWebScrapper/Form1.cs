@@ -1,14 +1,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Data.Common;
-using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 using TracksineWebScrapper.Business;
 using TracksineWebScrapper.Entities;
 using TracksineWebScrapper.Utility;
-using Microsoft.Data.SqlClient;
-using System.Windows.Forms;
 
 namespace TracksineWebScrapper
 {
@@ -26,7 +23,9 @@ namespace TracksineWebScrapper
         public SpinHistoryModel[] _last10Spin = new SpinHistoryModel[10];
         int _numberOfPull = 0;
         int _numberOfErrors = 0;
+        int _noSuchElementError = 0;
 
+        StringBuilder _stringBuilder;
         public Form1()
         {
             InitializeComponent();
@@ -41,9 +40,11 @@ namespace TracksineWebScrapper
             _efImage = efImage;
             _efMainModel = efMainModel;
 
+            StringBuilder stringBuilder = new StringBuilder();
+            _stringBuilder = stringBuilder;
 
             lblNumberOfErrors.Text = _numberOfErrors.ToString();
-
+            lblNoSuchElementOccured.Text = _noSuchElementError.ToString();
             HandleDatagrid();
             HandleSelenium();
 
@@ -86,7 +87,7 @@ namespace TracksineWebScrapper
             }
         }
 
-        private async void RunScrapping()
+        private void RunScrapping()
         {
 
 
@@ -137,19 +138,34 @@ namespace TracksineWebScrapper
                 _efSpinHistory.AddRange(spinHistories);
                 dgwTrial.DataSource = _efMainModel.GetDataGridData(); //////////////
 
-                //////MessageBox.Show("Data cekildi");
+                ////MessageBox.Show("Data cekildi");
 
 
                 Utilities.SetLastTenValue();
 
 
             }
+            catch (NoSuchElementException exception)
+            {
+                //This part prevents us from missing any data caused by not loading the HTML.
+                //Sometimes, we might be scraping HTML while it is still being uploaded and not entirely done.
+                //We wait using 'Thread.Sleep(2000)' in order to get the full HTML.
+                //If I don't do this here, I get an exception as follows in every 10 update:
+                //
+                //no such element: Unable to locate element: {"method":"xpath","selector":"span"}
+                //
+                _noSuchElementError++;
+                lblNoSuchElementOccured.Text = _noSuchElementError.ToString();
+                Thread.Sleep(2000);
+                TimerTick();
+            }
             catch (Exception exception)
             {
                 _chromeDriver.Quit();
                 _numberOfErrors++;
                 lblNumberOfErrors.Text = _numberOfErrors.ToString();
-                //MessageBox.Show(exception.Message);
+                _stringBuilder.AppendLine(exception.Message);
+                rBoxError.Text = _stringBuilder.ToString();
             }
 
         }

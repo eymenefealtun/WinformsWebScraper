@@ -26,4 +26,8 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.12.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
 </Project>
