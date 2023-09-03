@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Diagnostics;
 using TracksineWebScrapper.Business;
 using TracksineWebScrapper.Entities;
+using TracksineWebScrapper.Utility;
 
 namespace TracksineWebScrapper
 {
@@ -16,13 +16,13 @@ namespace TracksineWebScrapper
         ChromeDriver _chromeDriver;
         ChromeOptions _chromeOptions;
         ChromeDriverService _chromeDriverService;
-        SpinHistoryModel[] _last10Spin = new SpinHistoryModel[10];
-        Random _random = new Random();
+        public SpinHistoryModel[] _last10Spin = new SpinHistoryModel[10];
         int _numberOfPull = 0;
 
         public Form1()
         {
             InitializeComponent();
+            Utilities utilities = new Utilities(this);
 
             EfSpinHistory efTracksine = new EfSpinHistory();
             EfSpinHistoryModel efSpinHistoryModel = new EfSpinHistoryModel();
@@ -33,9 +33,6 @@ namespace TracksineWebScrapper
             HandleDatagrid();
             HandleSelenium();
 
-            TimerTick();
-
-            timerMain.Start();
         }
         private void SetLastTenValue()
         {
@@ -101,8 +98,8 @@ namespace TracksineWebScrapper
 
             Thread.Sleep(200);
 
-            //try
-            //{
+            try
+            {
 
                 var rowGroup = _chromeDriver.FindElement(By.XPath("//table[@class='table b-table table-striped table-bordered']")).FindElement(By.XPath("//tbody[@role='rowgroup']"));
                 List<SpinHistory> spinHistories = new List<SpinHistory>();
@@ -122,7 +119,7 @@ namespace TracksineWebScrapper
                         TotalPayout = currentRow.FindElement(By.XPath("td[6]")).Text,
                     };
 
-                    if (!IsAddedBefore(currentSpinHistory))
+                    if (!Utilities.IsAddedBefore(currentSpinHistory))
                         spinHistories.Add(currentSpinHistory);
 
                 }
@@ -135,78 +132,48 @@ namespace TracksineWebScrapper
                 _efSpinHistory.AddRange(spinHistories);
                 dgwMain.DataSource = _efSpinHistoryModel.GetAllRaw();
 
-                //MessageBox.Show("Data cekildi");
+                //////MessageBox.Show("Data cekildi");
 
 
                 SetLastTenValue();
 
 
-            //}
-            //catch (Exception exception)
-            //{
-            //    _chromeDriver.Quit();
-            //    MessageBox.Show(exception.Message);
-            //}
-
-        }
-
-        private bool IsAddedBefore(SpinHistory spinHistory)
-        {
-            bool isAdded = false;
-
-            for (int i = 0; i < _last10Spin.Count(); i++)
+            }
+            catch (Exception exception)
             {
-                if (_last10Spin[i].OccuredAt == spinHistory.OccuredAt
-                   && _last10Spin[i].SlotResult == spinHistory.SlotResult
-                   && _last10Spin[i].SpinResult == spinHistory.SpinResult
-                   && _last10Spin[i].Multiplier == spinHistory.Multiplier
-                   && _last10Spin[i].TotalWinners == spinHistory.TotalWinners
-                   && _last10Spin[i].TotalPayout == spinHistory.TotalPayout)
-                {
-
-                    isAdded = true;
-                    break;
-                }
+                _chromeDriver.Quit();
+                MessageBox.Show(exception.Message);
             }
 
-            return isAdded;
-        }
-        private void btnGetData_Click_1(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            RunScrapping();
-            Cursor.Current = null;
         }
 
         private void TimerTick()
         {
+            Cursor.Current = Cursors.WaitCursor;
             RunScrapping();
-
             _numberOfPull++;
-            timerMain.Interval = 120000 + GetRandomValue();
+            timerMain.Interval = 120000 + Utilities.GetRandomValue();
             lblNumberOfPull.Text = _numberOfPull.ToString();
+            lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
+            Cursor.Current = null;
         }
+
+        private void btnGetData_Click_1(object sender, EventArgs e)
+        {
+            TimerTick();
+        }
+
         private void timerMain_Tick(object sender, EventArgs e)
         {
             TimerTick();
         }
 
 
-        private int GetRandomValue()
+        private void Form1_Load(object sender, EventArgs e)
         {
-            int positive = _random.Next(0, 20000); //20 second +
-            int negative = _random.Next(0, 10000); //10 second -
-
-            return Random1Over2() ? positive : negative;
+            TimerTick();
+            timerMain.Start();
         }
-
-        private bool Random1Over2()
-        {
-            int value = _random.Next(0, 10);
-            return value < 4 ? false : true;
-        }
-
-
 
     }
 }

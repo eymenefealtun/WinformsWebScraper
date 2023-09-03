@@ -42,6 +42,8 @@
             TotalWinners = new DataGridViewTextBoxColumn();
             TotalPayout = new DataGridViewTextBoxColumn();
             panelMain = new Panel();
+            lblTotalData = new Label();
+            label2 = new Label();
             lblNumberOfPull = new Label();
             lblNamePull = new Label();
             btnGetData = new Button();
@@ -144,14 +146,34 @@
             // panelMain
             // 
             panelMain.Anchor = AnchorStyles.None;
+            panelMain.Controls.Add(lblTotalData);
+            panelMain.Controls.Add(label2);
             panelMain.Controls.Add(lblNumberOfPull);
             panelMain.Controls.Add(lblNamePull);
             panelMain.Controls.Add(btnGetData);
             panelMain.Controls.Add(dgwMain);
             panelMain.Location = new Point(1, 30);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1015, 435);
+            panelMain.Size = new Size(1051, 435);
             panelMain.TabIndex = 0;
+            // 
+            // lblTotalData
+            // 
+            lblTotalData.AutoSize = true;
+            lblTotalData.Location = new Point(1000, 38);
+            lblTotalData.Name = "lblTotalData";
+            lblTotalData.Size = new Size(19, 15);
+            lblTotalData.TabIndex = 4;
+            lblTotalData.Text = "19";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(856, 38);
+            label2.Name = "label2";
+            label2.Size = new Size(138, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Total data received by far";
             // 
             // lblNumberOfPull
             // 
@@ -173,11 +195,12 @@
             // 
             // btnGetData
             // 
+            btnGetData.Cursor = Cursors.Hand;
             btnGetData.Location = new Point(855, 380);
             btnGetData.Name = "btnGetData";
-            btnGetData.Size = new Size(75, 55);
+            btnGetData.Size = new Size(102, 55);
             btnGetData.TabIndex = 1;
-            btnGetData.Text = "Data Cek";
+            btnGetData.Text = "Manuel data çek";
             btnGetData.UseVisualStyleBackColor = true;
             btnGetData.Click += btnGetData_Click_1;
             // 
@@ -195,6 +218,7 @@
             Controls.Add(panelMain);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgwMain).EndInit();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
@@ -215,5 +239,7 @@
         private Label lblNamePull;
         private Label lblNumberOfPull;
         private System.Windows.Forms.Timer timerMain;
+        private Label lblTotalData;
+        private Label label2;
     }
 }
