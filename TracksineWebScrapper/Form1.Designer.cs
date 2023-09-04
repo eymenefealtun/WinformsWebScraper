@@ -31,13 +31,21 @@
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panelMain = new Panel();
             lblNoSuchElementOccured = new Label();
             label4 = new Label();
             rBoxError = new RichTextBox();
             dgwTrial = new DataGridView();
+            OccuredAt = new DataGridViewTextBoxColumn();
+            SlotResult = new DataGridHandler.TextAndImageColumn();
+            SpinResult = new DataGridViewImageColumn();
+            Multiplier = new DataGridViewTextBoxColumn();
+            TotalWinners = new DataGridViewTextBoxColumn();
+            TotalPayout = new DataGridViewTextBoxColumn();
             lblNumberOfErrors = new Label();
             label3 = new Label();
             lblTotalData = new Label();
@@ -46,12 +54,6 @@
             lblNamePull = new Label();
             btnGetData = new Button();
             timerMain = new System.Windows.Forms.Timer(components);
-            OccuredAt = new DataGridViewTextBoxColumn();
-            SlotResult = new DataGridViewImageColumn();
-            SpinResult = new DataGridViewImageColumn();
-            Multiplier = new DataGridViewTextBoxColumn();
-            TotalWinners = new DataGridViewTextBoxColumn();
-            TotalPayout = new DataGridViewTextBoxColumn();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).BeginInit();
             SuspendLayout();
@@ -103,7 +105,8 @@
             // 
             // dgwTrial
             // 
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(239, 243, 246);
+            dgwTrial.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = Color.White;
             dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgwTrial.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgwTrial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -118,28 +121,66 @@
             dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwTrial.Columns.AddRange(new DataGridViewColumn[] { OccuredAt, SlotResult, SpinResult, Multiplier, TotalWinners, TotalPayout });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgwTrial.DefaultCellStyle = dataGridViewCellStyle3;
-            dgwTrial.Location = new Point(3, 0);
-            dgwTrial.Name = "dgwTrial";
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgwTrial.DefaultCellStyle = dataGridViewCellStyle4;
+            dgwTrial.Location = new Point(3, 0);
+            dgwTrial.Name = "dgwTrial";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgwTrial.RowHeadersVisible = false;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(239, 243, 246);
+            dgwTrial.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dgwTrial.RowTemplate.Height = 25;
             dgwTrial.Size = new Size(823, 491);
             dgwTrial.TabIndex = 1;
+            // 
+            // OccuredAt
+            // 
+            OccuredAt.HeaderText = "Occured At";
+            OccuredAt.Name = "OccuredAt";
+            // 
+            // SlotResult
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            SlotResult.DefaultCellStyle = dataGridViewCellStyle3;
+            SlotResult.HeaderText = "Slot Result";
+            SlotResult.Image = null;
+            SlotResult.Name = "SlotResult";
+            SlotResult.Resizable = DataGridViewTriState.True;
+            // 
+            // SpinResult
+            // 
+            SpinResult.HeaderText = "SpinResult";
+            SpinResult.Name = "SpinResult";
+            SpinResult.Resizable = DataGridViewTriState.True;
+            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Multiplier
+            // 
+            Multiplier.HeaderText = "Multiplier";
+            Multiplier.Name = "Multiplier";
+            // 
+            // TotalWinners
+            // 
+            TotalWinners.HeaderText = "Total Winners";
+            TotalWinners.Name = "TotalWinners";
+            // 
+            // TotalPayout
+            // 
+            TotalPayout.HeaderText = "Total Payout";
+            TotalPayout.Name = "TotalPayout";
             // 
             // lblNumberOfErrors
             // 
@@ -211,40 +252,6 @@
             timerMain.Interval = 120000;
             timerMain.Tick += timerMain_Tick;
             // 
-            // OccuredAt
-            // 
-            OccuredAt.HeaderText = "Occured At";
-            OccuredAt.Name = "OccuredAt";
-            // 
-            // SlotResult
-            // 
-            SlotResult.HeaderText = "Slot Result";
-            SlotResult.Name = "SlotResult";
-            SlotResult.Resizable = DataGridViewTriState.True;
-            SlotResult.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // SpinResult
-            // 
-            SpinResult.HeaderText = "SpinResult";
-            SpinResult.Name = "SpinResult";
-            SpinResult.Resizable = DataGridViewTriState.True;
-            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Multiplier
-            // 
-            Multiplier.HeaderText = "Multiplier";
-            Multiplier.Name = "Multiplier";
-            // 
-            // TotalWinners
-            // 
-            TotalWinners.HeaderText = "Total Winners";
-            TotalWinners.Name = "TotalWinners";
-            // 
-            // TotalPayout
-            // 
-            TotalPayout.HeaderText = "Total Payout";
-            TotalPayout.Name = "TotalPayout";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -277,7 +284,7 @@
         private Label lblNoSuchElementOccured;
         private Label label4;
         private DataGridViewTextBoxColumn OccuredAt;
-        private DataGridViewImageColumn SlotResult;
+        private DataGridHandler.TextAndImageColumn SlotResult;
         private DataGridViewImageColumn SpinResult;
         private DataGridViewTextBoxColumn Multiplier;
         private DataGridViewTextBoxColumn TotalWinners;

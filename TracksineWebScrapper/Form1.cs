@@ -1,9 +1,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using TracksineWebScrapper.Business;
+using TracksineWebScrapper.DataGridHandler;
 using TracksineWebScrapper.Entities;
 using TracksineWebScrapper.Entities.Models;
 using TracksineWebScrapper.Utility;
@@ -49,6 +51,25 @@ namespace TracksineWebScrapper
             HandleDatagrid();
             HandleSelenium();
 
+
+
+        }
+        private void ImageRowDisplayForAllData()
+        {
+            for (int i = 0; i < dgwTrial.Rows.Count; i++)
+                ((TextAndImageCell)dgwTrial.Rows[i].Cells[1]).Image = GetImageFromByteArray(_efMainModel.GetDataGridData()[i].SlotResultImage);
+        }
+        private void ImageRowDisplay(int rowIndex, MainModel model)
+        {
+            //((TextAndImageCell)dgwTrial.Rows[rowIndex].Cells[1]).Image = GetImageFromByteArray(_efMainModel.GetDataGridData()[r].SlotResultImage);
+            ((TextAndImageCell)dgwTrial.Rows[rowIndex].Cells[1]).Image = GetImageFromByteArray(model.SlotResultImage);
+        }
+        private Image GetImageFromByteArray(Byte[] byteArrayIn)
+        {
+            using (var ms = new MemoryStream(byteArrayIn))
+            {
+                return Image.FromStream(ms);
+            }
         }
 
         private void HandleDatagrid()
@@ -56,8 +77,8 @@ namespace TracksineWebScrapper
 
             dgwTrial.AutoGenerateColumns = false;
             dgwTrial.Columns["OccuredAt"].DataPropertyName = "OccuredAt";
-            //dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResult";
-            dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResultImage";
+            dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResultText";
+            //dgwTrial.Columns["SlotResult"].DataPropertyName = "SlotResultImage";
             dgwTrial.Columns["SpinResult"].DataPropertyName = "SpinResult";
             dgwTrial.Columns["Multiplier"].DataPropertyName = "Multiplier";
             dgwTrial.Columns["TotalWinners"].DataPropertyName = "TotalWinners";
@@ -66,7 +87,7 @@ namespace TracksineWebScrapper
             dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgwTrial.ColumnHeadersHeight = 40;
             dgwTrial.GridColor = Color.LightGray;
-            dgwTrial.DataSource = _efMainModel.GetDataGridData();
+            //dgwTrial.DataSource = _efMainModel.GetDataGridData();
 
             Utilities.SetLastTenValue();
 
@@ -104,6 +125,9 @@ namespace TracksineWebScrapper
 
                 var rowGroup = _chromeDriver.FindElement(By.XPath("//table[@class='table b-table table-striped table-bordered']")).FindElement(By.XPath("//tbody[@role='rowgroup']"));
                 List<SpinHistory> spinHistories = new List<SpinHistory>();
+                List<MainModel> mainModels = new List<MainModel>();
+
+
                 var rows = rowGroup.FindElements(By.XPath("tr"));
 
                 for (int i = rows.Count; i >= 1; i--)
@@ -128,7 +152,21 @@ namespace TracksineWebScrapper
                     };
 
                     if (!Utilities.IsAddedBefore(currentSpinHistory))
+                    {
                         spinHistories.Add(currentSpinHistory);
+                        mainModels.Add(new MainModel()
+                        {
+                            Id = currentSpinHistory.Id,
+                            OccuredAt = currentSpinHistory.OccuredAt,
+                            SlotResultImage = Utilities.GetSlotResultImageByteFromId(currentSpinHistory.SlotResultImageId),
+                            SlotResultText = currentSpinHistory.SlotResultText,
+                            SpinResult = Utilities.GetSpinResultImageByteFromId(currentSpinHistory.SpinResultId),
+                            Multiplier = currentSpinHistory.Multiplier,
+                            TotalWinners = currentSpinHistory.TotalWinners,
+                            TotalPayout = currentSpinHistory.TotalPayout,
+                        }); ;
+
+                    }
 
                 }
 
@@ -138,13 +176,65 @@ namespace TracksineWebScrapper
 
 
                 _efSpinHistory.AddRange(spinHistories);
-                dgwTrial.DataSource = _efMainModel.GetDataGridData(); //////////////
+
+    
+
+
+
+                //replace RowObject with the name of your underlying class that constitutes each 
+                //row
+
+                //replace DiscountProperty and TaxProperty with the names of the properties on 
+                //your RowObject that correspond to these values
+
+
+                for (int i = 0; i < mainModels.Count(); i++)
+                {
+
+                    //    #region asd
+                    MainModel obj = (MainModel)dgwTrial.Rows[0].DataBoundItem;
+
+                    obj.OccuredAt = mainModels[i].OccuredAt;
+                    obj.SlotResultText = mainModels[i].SlotResultText;
+                    obj.SlotResultImage = mainModels[i].SlotResultImage;
+                    obj.SpinResult = mainModels[i].SpinResult;
+                    obj.Multiplier = mainModels[i].Multiplier;
+                    obj.TotalWinners = mainModels[i].TotalWinners;
+                    obj.TotalPayout = mainModels[i].TotalPayout;
+
+
+
+
+                    //dgwTrial.Rows.Add();
+                    //int rowIndex = dgwTrial.RowCount - 1;
+                    //DataGridViewRow r = dgwTrial.Rows[rowIndex];
+                    //r.Cells["OccuredAt"].Value = mainModels[i].OccuredAt;
+                    //r.Cells["SlotResult"].Value = mainModels[i].SlotResultText;
+                    //r.Cells["SpinResult"].Value = mainModels[i].SpinResult;
+                    //r.Cells["Multiplier"].Value = mainModels[i].Multiplier;
+                    //r.Cells["TotalWinners"].Value = mainModels[i].TotalWinners;
+                    //r.Cells["TotalPayout"].Value = mainModels[i].TotalPayout;
+
+
+
+
+                    //#endregion
+
+                    //    //ImageRowDisplay(j, mainModels[i]);
+                    //    //ImageRowDisplay(dgwTrial.Rows.Count , mainModels[i]);
+                    ImageRowDisplay(0, mainModels[i]);
+                }
+
+
+
+                //dgwTrial.DataSource = _efMainModel.GetDataGridData(); //////////////
 
                 ////MessageBox.Show("Data cekildi");
 
 
                 Utilities.SetLastTenValue();
-
+                //Thread.Sleep(5000);
+                //ImageRowDisplay(spinHistories.Count());
 
             }
             catch (NoSuchElementException exception)
@@ -158,7 +248,7 @@ namespace TracksineWebScrapper
                 //
                 _noSuchElementError++;
                 lblNoSuchElementOccured.Text = _noSuchElementError.ToString();
-                Thread.Sleep(2000);
+                Thread.Sleep(4000);
                 TimerTick();
             }
             catch (Exception exception)
@@ -171,8 +261,7 @@ namespace TracksineWebScrapper
             }
 
         }
-
-
+        bool _canDataCome = true;
         private void TimerTick()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -183,24 +272,20 @@ namespace TracksineWebScrapper
             lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
             Cursor.Current = null;
         }
-
         private void btnGetData_Click_1(object sender, EventArgs e)
         {
             TimerTick();
         }
-
         private void timerMain_Tick(object sender, EventArgs e)
         {
             TimerTick();
         }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             TimerTick();
             timerMain.Start();
             dgwTrial.DataSource = _efMainModel.GetDataGridData();
-
+            ImageRowDisplayForAllData();
 
 
 

@@ -13,5 +13,12 @@ namespace TracksineWebScrapper.Business
                 return context.Set<SpinResultImage>().SingleOrDefault(filter);
             }
         }
+        public List<SpinResultImage> GetAll(Expression<Func<SpinResultImage, bool>> filter = null)
+        {
+            using (TracksineContext context = new TracksineContext())
+            {
+                return filter == null ? context.Set<SpinResultImage>().ToList() : context.Set<SpinResultImage>().Where(filter).ToList();
+            }
+        }
     }
 }

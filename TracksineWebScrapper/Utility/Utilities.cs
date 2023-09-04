@@ -1,4 +1,6 @@
-﻿using TracksineWebScrapper.Entities;
+﻿using OpenQA.Selenium.DevTools.V114.Debugger;
+using TracksineWebScrapper.Business;
+using TracksineWebScrapper.Entities;
 using TracksineWebScrapper.Entities.Models;
 
 namespace TracksineWebScrapper.Utility
@@ -9,6 +11,12 @@ namespace TracksineWebScrapper.Utility
         static Random _random { get; set; }
         static Dictionary<string, Int16> _spinResultIcons;
         static Dictionary<string, Int16> _slotResultIcon;
+
+        static Dictionary<int, Byte[]> _slotIconBytesWithId;
+        static Dictionary<int, Byte[]> _spinIconBytesWithId;
+
+        static EfSlotResultImage _efSlotResultImage;
+        static EfSpinResultImage _efSpinResultImage;
         public Utilities(Form1 form)
         {
             _mainForm = form;
@@ -39,6 +47,21 @@ namespace TracksineWebScrapper.Utility
 
             _spinResultIcons = spinResultIcons;
             _slotResultIcon = slotResultIcon;
+
+
+            _efSlotResultImage = new EfSlotResultImage();
+            _efSpinResultImage = new EfSpinResultImage();
+
+            _spinIconBytesWithId = new Dictionary<int, byte[]>();
+            _slotIconBytesWithId = new Dictionary<int, byte[]>();
+
+            var slotResultImageTemp = _efSlotResultImage.GetAll();
+            for (int i = 0; i < slotResultImageTemp.Count(); i++)
+                _slotIconBytesWithId.Add(slotResultImageTemp[i].Id, slotResultImageTemp[i].ImageCode);
+
+            var spinResultImageTemp = _efSpinResultImage.GetAll();
+            for (int i = 0; i < spinResultImageTemp.Count(); i++)
+                _spinIconBytesWithId.Add(spinResultImageTemp[i].Id, spinResultImageTemp[i].ImageCode);
         }
 
         internal static bool IsAddedBefore(SpinHistory spinHistory)
@@ -49,7 +72,7 @@ namespace TracksineWebScrapper.Utility
             {
                 if (_mainForm._last10Spin[i].OccuredAt == spinHistory.OccuredAt
                    && _mainForm._last10Spin[i].SlotResultImageId == spinHistory.SlotResultImageId
-                   && _mainForm._last10Spin[i].SlotResultText == spinHistory.SlotResultText     
+                   && _mainForm._last10Spin[i].SlotResultText == spinHistory.SlotResultText
                    && _mainForm._last10Spin[i].SpinResultId == spinHistory.SpinResultId
                    && _mainForm._last10Spin[i].Multiplier == spinHistory.Multiplier
                    && _mainForm._last10Spin[i].TotalWinners == spinHistory.TotalWinners
@@ -100,7 +123,13 @@ namespace TracksineWebScrapper.Utility
             return _slotResultIcon.Where(x => x.Key == input).FirstOrDefault().Value;
         }
 
-
-
+        internal static byte[] GetSpinResultImageByteFromId(int id)
+        {
+            return _spinIconBytesWithId.Where(x => x.Key == id).FirstOrDefault().Value;
+        }
+        internal static byte[] GetSlotResultImageByteFromId(int id)
+        {
+            return _slotIconBytesWithId.Where(x => x.Key == id).FirstOrDefault().Value;
+        }
     }
 }
