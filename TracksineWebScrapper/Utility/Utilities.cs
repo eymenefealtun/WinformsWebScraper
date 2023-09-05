@@ -1,5 +1,4 @@
-﻿using OpenQA.Selenium.DevTools.V114.Debugger;
-using TracksineWebScrapper.Business;
+﻿using TracksineWebScrapper.Business;
 using TracksineWebScrapper.Entities;
 using TracksineWebScrapper.Entities.Models;
 
@@ -9,51 +8,37 @@ namespace TracksineWebScrapper.Utility
     {
         static Form1 _mainForm { get; set; }
         static Random _random { get; set; }
-        static Dictionary<string, Int16> _spinResultIcons;
-        static Dictionary<string, Int16> _slotResultIcon;
+
+        static Dictionary<string, Int16> _iconMappings;
 
         static Dictionary<int, Byte[]> _slotIconBytesWithId;
         static Dictionary<int, Byte[]> _spinIconBytesWithId;
 
-        static EfSlotResultImage _efSlotResultImage;
-        static EfSpinResultImage _efSpinResultImage;
+        EfSlotResultImage _efSlotResultImage;
+        EfSpinResultImage _efSpinResultImage;
+     
+
         public Utilities(Form1 form)
         {
             _mainForm = form;
             _random = new Random();
 
-            var spinResultIcons = new Dictionary<string, Int16>
-            {
-                { "1",8},
-                { "2",7},
-                { "5",6},
-                { "10", 5},
-                { "ct", 2},
-                { "ch", 4},
-                { "cf", 3},
-                { "pa", 1}
-            };
-            var slotResultIcon = new Dictionary<string, Int16>
+            _iconMappings = new Dictionary<string, Int16>
             {
                 { "1",1},
                 { "2",2},
                 { "5",3},
                 { "10", 4},
-                { "ct", 7},
                 { "ch", 5},
                 { "cf", 6},
+                { "ct", 7},
                 { "pa", 8}
             };
 
-            _spinResultIcons = spinResultIcons;
-            _slotResultIcon = slotResultIcon;
-
-
             _efSlotResultImage = new EfSlotResultImage();
             _efSpinResultImage = new EfSpinResultImage();
-
-            _spinIconBytesWithId = new Dictionary<int, byte[]>();
-            _slotIconBytesWithId = new Dictionary<int, byte[]>();
+            _slotIconBytesWithId = new Dictionary<int, Byte[]>();
+            _spinIconBytesWithId = new Dictionary<int, Byte[]>();
 
             var slotResultImageTemp = _efSlotResultImage.GetAll();
             for (int i = 0; i < slotResultImageTemp.Count(); i++)
@@ -62,6 +47,12 @@ namespace TracksineWebScrapper.Utility
             var spinResultImageTemp = _efSpinResultImage.GetAll();
             for (int i = 0; i < spinResultImageTemp.Count(); i++)
                 _spinIconBytesWithId.Add(spinResultImageTemp[i].Id, spinResultImageTemp[i].ImageCode);
+
+        }
+
+        internal static Int16 GetIdFromStringForSpin(string input)
+        {
+            return _iconMappings.Where(x => x.Key == input).FirstOrDefault().Value;
         }
 
         internal static bool IsAddedBefore(SpinHistory spinHistory)
@@ -101,9 +92,11 @@ namespace TracksineWebScrapper.Utility
                 TotalPayout = x.TotalPayout
             }).ToArray();
         }
-        internal static int GetRandomValue(int positive, int negative)
+
+        internal static int GetRandomValue(int negativeSecond,int positiveSecond)
         {
-            return Random1Over2() ? _random.Next(0, positive) : _random.Next(negative, 0);
+
+            return Random1Over2() ? _random.Next(0, positiveSecond * 1000) : _random.Next(negativeSecond * 1000, 0);
         }
 
         private static bool Random1Over2()
@@ -111,25 +104,29 @@ namespace TracksineWebScrapper.Utility
             return _random.Next(0, 10) < 4 ? false : true;
         }
 
-        internal static Int16 GetSpinIconId(string input)
+        internal static Image ByteArrayToImage(byte[] byteAray)
         {
-            return _spinResultIcons.Where(x => x.Key == input).FirstOrDefault().Value;
+            using (MemoryStream ms = new MemoryStream(byteAray))
+            {
+                return Image.FromStream(ms);
+            }
         }
 
-
-
-        internal static Int16 GetSlotResultImageId(string input)
+        internal static Int16 GetIconIdAccordingToItsText(string input)
         {
-            return _slotResultIcon.Where(x => x.Key == input).FirstOrDefault().Value;
+            return _iconMappings.Where(x => x.Key == input).FirstOrDefault().Value;
         }
 
-        internal static byte[] GetSpinResultImageByteFromId(int id)
+        internal static byte[] GetSpinResultImageByteFromIconId(int id)
         {
             return _spinIconBytesWithId.Where(x => x.Key == id).FirstOrDefault().Value;
         }
-        internal static byte[] GetSlotResultImageByteFromId(int id)
+
+        internal static byte[] GetSlotResultImageByteFromIconId(int id)
         {
             return _slotIconBytesWithId.Where(x => x.Key == id).FirstOrDefault().Value;
         }
+
+
     }
 }

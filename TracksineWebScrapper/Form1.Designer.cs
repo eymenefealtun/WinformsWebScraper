@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             panelMain = new Panel();
+            btnFetchData = new Button();
             lblNoSuchElementOccured = new Label();
             label4 = new Label();
             rBoxError = new RichTextBox();
@@ -52,7 +53,7 @@
             label2 = new Label();
             lblNumberOfPull = new Label();
             lblNamePull = new Label();
-            btnGetData = new Button();
+            btnScrapeManually = new Button();
             timerMain = new System.Windows.Forms.Timer(components);
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).BeginInit();
@@ -61,6 +62,7 @@
             // panelMain
             // 
             panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panelMain.Controls.Add(btnFetchData);
             panelMain.Controls.Add(lblNoSuchElementOccured);
             panelMain.Controls.Add(label4);
             panelMain.Controls.Add(rBoxError);
@@ -71,11 +73,21 @@
             panelMain.Controls.Add(label2);
             panelMain.Controls.Add(lblNumberOfPull);
             panelMain.Controls.Add(lblNamePull);
-            panelMain.Controls.Add(btnGetData);
+            panelMain.Controls.Add(btnScrapeManually);
             panelMain.Location = new Point(1, 5);
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(1051, 494);
             panelMain.TabIndex = 0;
+            // 
+            // btnFetchData
+            // 
+            btnFetchData.Location = new Point(940, 436);
+            btnFetchData.Name = "btnFetchData";
+            btnFetchData.Size = new Size(102, 55);
+            btnFetchData.TabIndex = 11;
+            btnFetchData.Text = "Fetch Data from DataBase";
+            btnFetchData.UseVisualStyleBackColor = true;
+            btnFetchData.Click += btnFetchData_Click;
             // 
             // lblNoSuchElementOccured
             // 
@@ -106,42 +118,42 @@
             // dgwTrial
             // 
             dgwTrial.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            dgwTrial.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dgwTrial.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgwTrial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgwTrial.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Control;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgwTrial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dgwTrial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgwTrial.Columns.AddRange(new DataGridViewColumn[] { OccuredAt, SlotResult, SpinResult, Multiplier, TotalWinners, TotalPayout });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgwTrial.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dgwTrial.DefaultCellStyle = dataGridViewCellStyle10;
             dgwTrial.Location = new Point(3, 0);
             dgwTrial.Name = "dgwTrial";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = SystemColors.Control;
+            dataGridViewCellStyle11.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dgwTrial.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dgwTrial.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(239, 243, 246);
-            dgwTrial.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = Color.FromArgb(239, 243, 246);
+            dgwTrial.RowsDefaultCellStyle = dataGridViewCellStyle12;
             dgwTrial.RowTemplate.Height = 25;
             dgwTrial.Size = new Size(823, 491);
             dgwTrial.TabIndex = 1;
@@ -153,8 +165,8 @@
             // 
             // SlotResult
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            SlotResult.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            SlotResult.DefaultCellStyle = dataGridViewCellStyle9;
             SlotResult.HeaderText = "Slot Result";
             SlotResult.Image = null;
             SlotResult.Name = "SlotResult";
@@ -236,16 +248,16 @@
             lblNamePull.TabIndex = 1;
             lblNamePull.Text = "Number of pull:";
             // 
-            // btnGetData
+            // btnScrapeManually
             // 
-            btnGetData.Cursor = Cursors.Hand;
-            btnGetData.Location = new Point(855, 380);
-            btnGetData.Name = "btnGetData";
-            btnGetData.Size = new Size(102, 55);
-            btnGetData.TabIndex = 1;
-            btnGetData.Text = "Manuel data çek";
-            btnGetData.UseVisualStyleBackColor = true;
-            btnGetData.Click += btnGetData_Click_1;
+            btnScrapeManually.Cursor = Cursors.Hand;
+            btnScrapeManually.Location = new Point(832, 436);
+            btnScrapeManually.Name = "btnScrapeManually";
+            btnScrapeManually.Size = new Size(102, 55);
+            btnScrapeManually.TabIndex = 1;
+            btnScrapeManually.Text = "Scrape manually";
+            btnScrapeManually.UseVisualStyleBackColor = true;
+            btnScrapeManually.Click += btnScrapManually_Click;
             // 
             // timerMain
             // 
@@ -271,7 +283,7 @@
         #endregion
 
         private Panel panelMain;
-        private Button btnGetData;
+        private Button btnScrapeManually;
         private Label lblNamePull;
         private Label lblNumberOfPull;
         private System.Windows.Forms.Timer timerMain;
@@ -289,5 +301,6 @@
         private DataGridViewTextBoxColumn Multiplier;
         private DataGridViewTextBoxColumn TotalWinners;
         private DataGridViewTextBoxColumn TotalPayout;
+        private Button btnFetchData;
     }
 }

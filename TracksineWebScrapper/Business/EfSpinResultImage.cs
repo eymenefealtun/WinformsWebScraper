@@ -6,13 +6,6 @@ namespace TracksineWebScrapper.Business
 {
     internal class EfSpinResultImage
     {
-        public SpinResultImage GetById(Expression<Func<SpinResultImage, bool>> filter)
-        {
-            using (TracksineContext context = new TracksineContext())
-            {       
-                return context.Set<SpinResultImage>().SingleOrDefault(filter);
-            }
-        }
         public List<SpinResultImage> GetAll(Expression<Func<SpinResultImage, bool>> filter = null)
         {
             using (TracksineContext context = new TracksineContext())
