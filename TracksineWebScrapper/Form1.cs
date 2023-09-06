@@ -91,12 +91,14 @@ namespace TracksineWebScrapper
             chromerDriverService.HideCommandPromptWindow = true;
             _chromeDriverService = chromerDriverService;
 
+
             //kill chromerdriver.exe from taskmanager
             Process[] processes = Process.GetProcessesByName("chromedriver");
             foreach (Process process in processes)
             {
                 process.Kill();
             }
+            _chromeDriver = new ChromeDriver(_chromeDriverService, _chromeOptions);
         }
 
         private async void TimerTick()
@@ -116,8 +118,7 @@ namespace TracksineWebScrapper
 
         private void RunScrapping()
         {
-
-            _chromeDriver = new ChromeDriver(_chromeDriverService, _chromeOptions);
+            
             _chromeDriver.Navigate().GoToUrl(_url);
 
 
@@ -170,8 +171,8 @@ namespace TracksineWebScrapper
                 }
 
                 // close driver
-                _chromeDriver.Close();
-                _chromeDriver.Quit();
+                //_chromeDriver.Close();
+                //_chromeDriver.Quit();
 
 
                 // Inert into db
