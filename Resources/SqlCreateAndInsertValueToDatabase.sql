@@ -215,37 +215,37 @@ GO
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '1' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResult1.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResult1.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '2' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResult2.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResult2.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '5' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResult5.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResult5.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '10' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResult10.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResult10.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Cash Hunt' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResultCashHunt.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResultCashHunt.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Coin Flip' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResultCoinFlip.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResultCoinFlip.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Crazy Time' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResultCrazyTime.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResultCrazyTime.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SpinResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Pachinko' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResultPachinko.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SpinResult\SpinResultPachinko.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 
@@ -256,37 +256,37 @@ FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SpinResult\SpinResu
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '1' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResult1.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResult1.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '2' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResult2.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResult2.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '5' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResult5.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResult5.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, '10' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResult10.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResult10.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Cash Hunt' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResultCashHunt.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResultCashHunt.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Coin Flip' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResultCoinFlip.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResultCoinFlip.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Crazy Time' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResultCrazyTime.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResultCrazyTime.PNG', SINGLE_BLOB) AS ImageCode;
 
 INSERT INTO TracksineSpinHistory.[dbo].[SlotResultImage] (ImageCode, ImageText)
 SELECT BulkColumn, 'Pachinko' AS ImageText
-FROM OPENROWSET(BULK 'C:\Users\eymen\Desktop\GambleResources\SlotResult\SlotResultPachinko.PNG', SINGLE_BLOB) AS ImageCode;
+FROM OPENROWSET(BULK 'yourpath\SlotResult\SlotResultPachinko.PNG', SINGLE_BLOB) AS ImageCode;
 
 
 
