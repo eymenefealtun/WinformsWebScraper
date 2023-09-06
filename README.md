@@ -29,8 +29,8 @@
 - [Selenium Web Driver](https://www.nuget.org/packages/Selenium.WebDriver)
 
 ## How to use?
-1. Download [GambleResources folder](https://github.com/eymenefealtun/TracksinoWebScraper/tree/master/TracksineWebScrapper/Resources/GambleResources)
-2. Execute the [T-SQL query]. (Do not forget to change `yourPath` path of GambleResources folder that you just downloaded)
+1. Download [GambleResources](https://github.com/eymenefealtun/TracksinoWebScraper/tree/master/TracksineWebScrapper/Resources/GambleResources) folder.
+2. Execute the [T-SQL query](https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/SqlCreateAndInsertValueToDatabase.sql). (change `yourPath` to the path of GambleResources folder that you just downloaded)
 3. Change your connection string in `appsettings.json`
 
 
