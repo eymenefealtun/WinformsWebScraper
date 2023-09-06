@@ -31,7 +31,8 @@
 ## How to use?
 1. Download [GambleResources](https://github.com/eymenefealtun/TracksinoWebScraper/tree/master/TracksineWebScrapper/Resources/GambleResources) folder.
 2. Execute the [T-SQL query](https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/SqlCreateAndInsertValueToDatabase.sql). (change `yourPath` to the path of GambleResources folder that you just downloaded)
-3. Change your connection string in `appsettings.json`
+3. Change your connection string in `appsettings.json`.
+4. Run the application.
 
 
 
