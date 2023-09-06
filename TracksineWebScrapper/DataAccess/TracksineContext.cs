@@ -24,7 +24,7 @@ namespace TracksineWebScrapper.DataAccess
             optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon1"));
 
         }
-
+                                          
 
     }
 }
