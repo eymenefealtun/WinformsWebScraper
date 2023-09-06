@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Timers;
 using TracksineWebScrapper.Business;
 using TracksineWebScrapper.DataGridHandler;
 using TracksineWebScrapper.Entities;
@@ -25,6 +26,11 @@ namespace TracksineWebScrapper
         int _numberOfErrors = 0;
         int _noSuchElementError = 0;
         StringBuilder _stringBuilder;
+        System.Timers.Timer _timerDesign;
+
+        Image _pBoxImage;
+        int _rotationNumber = 6;
+
 
         public Form1()
         {
@@ -42,8 +48,18 @@ namespace TracksineWebScrapper
 
             HandleDatagrid();
             HandleSelenium();
+            _pBoxImage = pBoxRefresh.Image; //https://www.flaticon.com/free-icons/refresh
 
-
+            _timerDesign = new System.Timers.Timer(50);
+            _timerDesign.Elapsed += OnTimedEvent;
+            //_timerDesign.Enabled = true;
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            PullValuesFromDatabase();
+            SetTimerInterval(5, 0, 0); // for initial pull
+            lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
+            timerMain.Start();
         }
 
         private void HandleDatagrid()
@@ -81,6 +97,21 @@ namespace TracksineWebScrapper
             {
                 process.Kill();
             }
+        }
+
+        private async void TimerTick()
+        {
+
+            StartRefresh();
+
+            RunScrapping();
+
+            _numberOfPull++;
+            SetTimerInterval(120, -10, 20);
+            lblNumberOfPull.Text = _numberOfPull.ToString();
+            lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
+
+            StopRefresh();
         }
 
         private void RunScrapping()
@@ -188,48 +219,9 @@ namespace TracksineWebScrapper
 
         }
 
-        private void TimerTick()
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            RunScrapping();
-            _numberOfPull++;
-            timerMain.Interval = 120000 + Utilities.GetRandomValue(-10, 20); // 2 minutes and plus random
-            lblNumberOfPull.Text = _numberOfPull.ToString();
-            lblTotalData.Text = _efSpinHistory.GetAll().Count().ToString();
-            Cursor.Current = null;
-        }
-
-        private void btnFetchData_Click(object sender, EventArgs e)
-        {
-            PullValuesFromDatabase();
-        }
-
-        private void btnScrapManually_Click(object sender, EventArgs e)
-        {
-            TimerTick();
-        }
-
-        private void timerMain_Tick(object sender, EventArgs e)
-        {
-            TimerTick();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            PullValuesFromDatabase();
-            SetTimerInterval(5, 0, 0); // for initial pull
-            timerMain.Start();
-
-        }
-
-        private void SetTimerInterval(int second, int positiveSecond, int negativeSecond)
-        {
-            timerMain.Interval = second * 1000;
-        }
-
         private void PullValuesFromDatabase()
         {
+            Thread.Sleep(10000);
             var list = _efMainModel.GetDataGridData();
             for (int i = 0; i < list.Count(); i++)
             {
@@ -244,13 +236,59 @@ namespace TracksineWebScrapper
                 r.Cells["TotalPayout"].Value = list[i].TotalPayout;
                 SetImagesToDataGridView(rowIndex, list[i]);
             }
+
         }
-        
+
+        private void btnFetchData_Click(object sender, EventArgs e)
+        {
+            PullValuesFromDatabase();
+            MessageBox.Show("Pull succeed!", "TracksinoWebScraper", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void btnScrapManually_Click(object sender, EventArgs e)
+        {
+            timerMain.Stop();
+            timerMain.Start();
+            TimerTick();
+        }
+
+        private void timerMain_Tick(object sender, EventArgs e)
+        {
+            TimerTick();
+        }
+
+        private void SetTimerInterval(int second, int negativeSecond, int positiveSecond)
+        {
+            timerMain.Interval = second * 1000 + Utilities.GetRandomValue(negativeSecond, positiveSecond);
+        }
+
         private void SetImagesToDataGridView(int rowIndex, MainModel model)
         {
             ((TextAndImageCell)dgwTrial.Rows[rowIndex].Cells[1]).Image = Utilities.ByteArrayToImage(model.SlotResultImage);
         }
 
+        private async Task StartRefresh()
+        {
+            pBoxRefresh.Visible = true;
+            _timerDesign.Start();
+
+        }
+
+        private async Task StopRefresh()
+        {
+            pBoxRefresh.Visible = false;
+            _timerDesign.Stop();
+            _rotationNumber = 6;
+        }
+
+        private async void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            var image = Utilities.RotateImage(_pBoxImage, _rotationNumber);
+
+            _rotationNumber += 6;
+            pBoxRefresh.Image = image;
+        }
 
     }
 }
