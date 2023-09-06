@@ -1,6 +1,6 @@
 # TracksinoWebScrapper
 <p align="center">
-  <img src="https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/Tracksino_Web_Scraper_600_200.png?raw=true" alt="Sublime's custom image"/>
+  <img src="https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/WinForms_Web_Scraper_600_200.png?raw=true" alt="Sublime's custom image"/>
 </p>
 
 <p align="center">
