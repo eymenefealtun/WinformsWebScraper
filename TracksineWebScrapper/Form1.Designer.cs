@@ -38,12 +38,6 @@
             panelMain = new Panel();
             pBoxRefresh = new PictureBox();
             dgwTrial = new DataGridView();
-            OccuredAt = new DataGridViewTextBoxColumn();
-            SlotResult = new DataGridHandler.TextAndImageColumn();
-            SpinResult = new DataGridViewImageColumn();
-            Multiplier = new DataGridViewTextBoxColumn();
-            TotalWinners = new DataGridViewTextBoxColumn();
-            TotalPayout = new DataGridViewTextBoxColumn();
             btnFetchData = new Button();
             lblNoSuchElementOccured = new Label();
             label4 = new Label();
@@ -56,6 +50,12 @@
             lblNamePull = new Label();
             btnScrapeManually = new Button();
             timerMain = new System.Windows.Forms.Timer(components);
+            OccuredAt = new DataGridViewTextBoxColumn();
+            SlotResult = new DataGridHandler.TextAndImageColumn();
+            SpinResult = new DataGridViewImageColumn();
+            Multiplier = new DataGridViewTextBoxColumn();
+            TotalWinners = new DataGridViewTextBoxColumn();
+            TotalPayout = new DataGridViewTextBoxColumn();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pBoxRefresh).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgwTrial).BeginInit();
@@ -75,7 +75,7 @@
             // pBoxRefresh
             // 
             pBoxRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pBoxRefresh.Image = Properties.Resources.refresh;
+            pBoxRefresh.Image = TracksinoWebScraper.Properties.Resources.refresh;
             pBoxRefresh.Location = new Point(883, 0);
             pBoxRefresh.Name = "pBoxRefresh";
             pBoxRefresh.Size = new Size(37, 39);
@@ -126,42 +126,6 @@
             dgwTrial.RowTemplate.Height = 25;
             dgwTrial.Size = new Size(880, 500);
             dgwTrial.TabIndex = 1;
-            // 
-            // OccuredAt
-            // 
-            OccuredAt.HeaderText = "Occured At";
-            OccuredAt.Name = "OccuredAt";
-            // 
-            // SlotResult
-            // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            SlotResult.DefaultCellStyle = dataGridViewCellStyle3;
-            SlotResult.HeaderText = "Slot Result";
-            SlotResult.Image = null;
-            SlotResult.Name = "SlotResult";
-            SlotResult.Resizable = DataGridViewTriState.True;
-            // 
-            // SpinResult
-            // 
-            SpinResult.HeaderText = "SpinResult";
-            SpinResult.Name = "SpinResult";
-            SpinResult.Resizable = DataGridViewTriState.True;
-            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Multiplier
-            // 
-            Multiplier.HeaderText = "Multiplier";
-            Multiplier.Name = "Multiplier";
-            // 
-            // TotalWinners
-            // 
-            TotalWinners.HeaderText = "Total Winners";
-            TotalWinners.Name = "TotalWinners";
-            // 
-            // TotalPayout
-            // 
-            TotalPayout.HeaderText = "Total Payout";
-            TotalPayout.Name = "TotalPayout";
             // 
             // btnFetchData
             // 
@@ -280,6 +244,45 @@
             timerMain.Interval = 120000;
             timerMain.Tick += timerMain_Tick;
             // 
+            // OccuredAt
+            // 
+            OccuredAt.HeaderText = "Occured At";
+            OccuredAt.MinimumWidth = 146;
+            OccuredAt.Name = "OccuredAt";
+            // 
+            // SlotResult
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            SlotResult.DefaultCellStyle = dataGridViewCellStyle3;
+            SlotResult.HeaderText = "Slot Result";
+            SlotResult.Image = null;
+            SlotResult.MinimumWidth = 140;
+            SlotResult.Name = "SlotResult";
+            SlotResult.Resizable = DataGridViewTriState.True;
+            // 
+            // SpinResult
+            // 
+            SpinResult.HeaderText = "SpinResult";
+            SpinResult.MinimumWidth = 140;
+            SpinResult.Name = "SpinResult";
+            SpinResult.Resizable = DataGridViewTriState.True;
+            SpinResult.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Multiplier
+            // 
+            Multiplier.HeaderText = "Multiplier";
+            Multiplier.Name = "Multiplier";
+            // 
+            // TotalWinners
+            // 
+            TotalWinners.HeaderText = "Total Winners";
+            TotalWinners.Name = "TotalWinners";
+            // 
+            // TotalPayout
+            // 
+            TotalPayout.HeaderText = "Total Payout";
+            TotalPayout.Name = "TotalPayout";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -323,13 +326,13 @@
         private RichTextBox rBoxError;
         private Label lblNoSuchElementOccured;
         private Label label4;
+        private Button btnFetchData;
+        private PictureBox pBoxRefresh;
         private DataGridViewTextBoxColumn OccuredAt;
         private DataGridHandler.TextAndImageColumn SlotResult;
         private DataGridViewImageColumn SpinResult;
         private DataGridViewTextBoxColumn Multiplier;
         private DataGridViewTextBoxColumn TotalWinners;
         private DataGridViewTextBoxColumn TotalPayout;
-        private Button btnFetchData;
-        private PictureBox pBoxRefresh;
     }
 }
