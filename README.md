@@ -21,7 +21,7 @@
 
 </p>
 
-**Tracksino Web Scraper** is a web scraper built for the Spin History table of [tracksino.com/crazytime](https://tracksino.com/crazytime). It is written in [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) and based on [WinForms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/?view=netdesktop-7.0).
+**Tracksino Web Scraper** is a web scraper built for the Spin History table of [tracksino.com/crazytime](https://tracksino.com/crazytime). It is written in [C#](https://learn.microsoft.com/en-us/dotnet/csharp/), based on [WinForms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/?view=netdesktop-7.0) and used [Selenium.WebDriver](https://www.nuget.org/packages/Selenium.WebDriver).
 
 ![](https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/TracksinpScrapingGif.gif)
 
