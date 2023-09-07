@@ -1,4 +1,4 @@
-# WinformsWebScrapper
+# WinformsWebScraper
 <p align="center">
   <img src="https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/WinForms_Web_Scraper_600_200.png?raw=true" alt="Sublime's custom image"/>
 </p>
