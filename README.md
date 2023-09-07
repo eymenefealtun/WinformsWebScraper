@@ -22,6 +22,7 @@
 </p>
 
 **Winforms Web Scraper** is a web scraper built for the Spin History table of [tracksino.com/crazytime](https://tracksino.com/crazytime). It is written in [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) and based on [WinForms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/?view=netdesktop-7.0).
+
 ![](https://github.com/eymenefealtun/TracksinoWebScraper/blob/master/Resources/TracksinpScrapingGif.gif)
 
 ## Technologies used
